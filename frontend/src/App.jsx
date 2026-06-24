@@ -4,7 +4,9 @@ import Header from './components/Header'
 import ChatArea from './components/ChatArea'
 import InputArea from './components/InputArea'
 import CompareModal from './components/CompareModal'
+import AboutModal from './components/AboutModal'
 import { getSessions, createSession, getSession, updateSession, deleteSession, addMessageToSession } from './utils/storage'
+import { Ripple } from '@/components/ui/ripple'
 
 export default function App() {
   const [sessions, setSessions] = useState( [] )
@@ -12,6 +14,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState( false )
   const [modelOverride, setModelOverride] = useState( 'auto' )
   const [showCompareModal, setShowCompareModal] = useState( false )
+  const [showAboutModal, setShowAboutModal] = useState( false )
+  const [isSidebarOpen, setIsSidebarOpen] = useState( true )
 
   // Initialize sessions
   useEffect( () => {
@@ -78,7 +82,7 @@ export default function App() {
 
     // Add user and assistant placeholder messages
     const userMessage = { role: 'user', content: message }
-    const assistantPlaceholder = { role: 'assistant', content: '...' }
+    const assistantPlaceholder = { role: 'assistant', content: '', thinking: true }
     addMessageToSession( activeSessionId, userMessage )
     addMessageToSession( activeSessionId, assistantPlaceholder )
     setSessions( getSessions() )
@@ -139,6 +143,7 @@ export default function App() {
                 const lastMsg = updatedSession.messages[updatedSession.messages.length - 1]
                 lastMsg.role = 'assistant'
                 lastMsg.content = fullContent
+                delete lastMsg.thinking // Remove thinking state once content starts
                 if ( fullMetadata ) {
                   lastMsg.metadata = fullMetadata
                 }
@@ -157,6 +162,7 @@ export default function App() {
       if ( finalSession && finalSession.messages.length > 0 ) {
         const lastMsg = finalSession.messages[finalSession.messages.length - 1]
         lastMsg.content = fullContent
+        delete lastMsg.thinking
         if ( fullMetadata ) {
           lastMsg.metadata = fullMetadata
         }
@@ -176,6 +182,7 @@ export default function App() {
       if ( updatedSession && updatedSession.messages.length > 0 ) {
         const lastMsg = updatedSession.messages[updatedSession.messages.length - 1]
         lastMsg.content = `Error: ${error.message}`
+        delete lastMsg.thinking
         updateSession( activeSessionId, { messages: updatedSession.messages } )
         setSessions( getSessions() )
       }
@@ -213,36 +220,49 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-dark-950">
-      <Sidebar
-        sessions={sessions}
-        activeSessionId={activeSessionId}
-        onSelectSession={handleSelectSession}
-        onNewChat={handleNewChat}
-        onDeleteSession={handleDeleteSession}
-        onExport={handleExportChat}
-      />
-
-      <div className="flex-1 flex flex-col">
-        <Header onCompareModels={() => setShowCompareModal( true )} />
-
-        <ChatArea
-          messages={activeSession?.messages || []}
-          isLoading={isLoading}
+    <div className="relative flex h-screen bg-[#0A0A0A] text-neutral-200 overflow-hidden w-full font-sans">
+      <div className="z-10 flex h-full w-full">
+        <Sidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen( false )}
+          sessions={sessions}
+          activeSessionId={activeSessionId}
+          onSelectSession={handleSelectSession}
+          onNewChat={handleNewChat}
+          onDeleteSession={handleDeleteSession}
+          onExport={handleExportChat}
+          onOpenAbout={() => setShowAboutModal( true )}
         />
 
-        <InputArea
-          onSendMessage={handleSendMessage}
-          isLoading={isLoading}
-          modelOverride={modelOverride}
-          onModelChange={setModelOverride}
-        />
+        <div className="flex-1 flex flex-col z-10">
+          <Header 
+            onCompareModels={() => setShowCompareModal( true )} 
+            onToggleSidebar={() => setIsSidebarOpen( !isSidebarOpen )}
+          />
+
+          <ChatArea
+            messages={activeSession?.messages || []}
+            isLoading={isLoading}
+          />
+
+          <InputArea
+            onSendMessage={handleSendMessage}
+            isLoading={isLoading}
+            modelOverride={modelOverride}
+            onModelChange={setModelOverride}
+          />
+        </div>
       </div>
 
       <CompareModal
         isOpen={showCompareModal}
         onClose={() => setShowCompareModal( false )}
         onCompare={() => { }}
+      />
+
+      <AboutModal
+        isOpen={showAboutModal}
+        onClose={() => setShowAboutModal( false )}
       />
     </div>
   )

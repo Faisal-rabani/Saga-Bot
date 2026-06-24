@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { X, Copy, Check } from 'lucide-react'
+import { GeminiLogo, ChatGPTLogo } from './Logos'
 
 export default function CompareModal( { isOpen, onClose, onCompare } ) {
     const [prompt, setPrompt] = useState( '' )
@@ -35,12 +36,12 @@ export default function CompareModal( { isOpen, onClose, onCompare } ) {
                 const codeId = `compare-code-${idx}`
 
                 return (
-                    <div key={idx} className="code-block my-3">
-                        <div className="flex items-center justify-between bg-black px-4 py-2 border-b border-dark-700">
-                            <span className="text-xs text-gray-400 font-mono">{language}</span>
+                    <div key={idx} className="code-block my-3 bg-[#111] rounded-md border border-neutral-800/50 overflow-hidden">
+                        <div className="flex items-center justify-between bg-neutral-900 px-4 py-2 border-b border-neutral-800/50">
+                            <span className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider">{language}</span>
                             <button
                                 onClick={() => copyToClipboard( code, codeId )}
-                                className="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition"
+                                className="flex items-center gap-1 text-xs text-neutral-400 hover:text-white transition"
                             >
                                 {copiedCode === codeId ? (
                                     <>
@@ -55,7 +56,7 @@ export default function CompareModal( { isOpen, onClose, onCompare } ) {
                                 )}
                             </button>
                         </div>
-                        <pre className="text-sm text-gray-100 overflow-x-auto p-4 bg-black border border-dark-700 rounded-b">
+                        <pre className="text-sm text-neutral-200 overflow-x-auto p-4 bg-transparent">
                             <code className="font-mono">{code}</code>
                         </pre>
                     </div>
@@ -138,16 +139,16 @@ export default function CompareModal( { isOpen, onClose, onCompare } ) {
     if ( !isOpen ) return null
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-dark-900 rounded-lg w-full max-w-6xl max-h-[80vh] flex flex-col border border-dark-700">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-[#0A0A0A] rounded-xl w-full max-w-6xl max-h-[80vh] flex flex-col border border-neutral-800 shadow-2xl">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-dark-700">
-                    <h2 className="text-xl font-bold text-white">Compare Models</h2>
+                <div className="flex items-center justify-between p-6 border-b border-neutral-800">
+                    <h2 className="text-lg font-orbitron font-bold text-orange-500 tracking-wider">Compare Models</h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-white transition"
+                        className="text-neutral-500 hover:text-white transition"
                     >
-                        <X size={24} />
+                        <X size={20} />
                     </button>
                 </div>
 
@@ -156,71 +157,92 @@ export default function CompareModal( { isOpen, onClose, onCompare } ) {
                     {!results ? (
                         <form onSubmit={handleCompare} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">
+                                <label className="block text-xs font-medium text-neutral-400 mb-2 uppercase tracking-wide">
                                     Your Prompt
                                 </label>
                                 <textarea
                                     value={prompt}
                                     onChange={( e ) => setPrompt( e.target.value )}
                                     placeholder="Enter a coding question to compare..."
-                                    className="w-full bg-dark-800 border border-dark-700 text-gray-100 rounded-lg p-3 focus:outline-none focus:border-blue-500"
+                                    className="w-full bg-[#111] border border-neutral-800 text-neutral-200 rounded p-3 focus:outline-none focus:border-neutral-500 resize-none text-sm"
                                     rows="4"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label className="block text-xs font-medium text-neutral-400 mb-2 uppercase tracking-wide">
                                         Model 1
                                     </label>
-                                    <select
-                                        value={model1}
-                                        onChange={( e ) => setModel1( e.target.value )}
-                                        className="w-full bg-dark-800 border border-dark-700 text-gray-100 rounded-lg p-2 focus:outline-none focus:border-blue-500"
-                                    >
-                                        <option value="gemini">✨ Gemini</option>
-                                        <option value="openai">🤖 ChatGPT</option>
-                                    </select>
+                                    <div className="relative">
+                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            {model1 === 'gemini' ? <GeminiLogo className="w-4 h-4 text-blue-400" /> : <ChatGPTLogo className="w-4 h-4 text-green-500" />}
+                                        </div>
+                                        <select
+                                            value={model1}
+                                            onChange={( e ) => setModel1( e.target.value )}
+                                            className="w-full bg-[#111] border border-neutral-800 text-neutral-200 rounded p-2.5 pl-9 focus:outline-none focus:border-neutral-500 text-sm appearance-none"
+                                        >
+                                            <option value="gemini">Gemini</option>
+                                            <option value="openai">ChatGPT</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label className="block text-xs font-medium text-neutral-400 mb-2 uppercase tracking-wide">
                                         Model 2
                                     </label>
-                                    <select
-                                        value={model2}
-                                        onChange={( e ) => setModel2( e.target.value )}
-                                        className="w-full bg-dark-800 border border-dark-700 text-gray-100 rounded-lg p-2 focus:outline-none focus:border-blue-500"
-                                    >
-                                        <option value="gemini">✨ Gemini</option>
-                                        <option value="openai">🤖 ChatGPT</option>
-                                    </select>
+                                    <div className="relative">
+                                        <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            {model2 === 'gemini' ? <GeminiLogo className="w-4 h-4 text-blue-400" /> : <ChatGPTLogo className="w-4 h-4 text-green-500" />}
+                                        </div>
+                                        <select
+                                            value={model2}
+                                            onChange={( e ) => setModel2( e.target.value )}
+                                            className="w-full bg-[#111] border border-neutral-800 text-neutral-200 rounded p-2.5 pl-9 focus:outline-none focus:border-neutral-500 text-sm appearance-none"
+                                        >
+                                            <option value="gemini">Gemini</option>
+                                            <option value="openai">ChatGPT</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading || !prompt.trim()}
-                                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white rounded-lg font-medium transition"
+                                className="w-full px-4 py-3 bg-white hover:bg-gray-200 disabled:bg-neutral-800 disabled:text-neutral-500 text-black rounded font-medium transition text-sm"
                             >
-                                {isLoading ? 'Comparing...' : 'Compare'}
+                                {isLoading ? 'Comparing...' : 'Compare Models'}
                             </button>
                         </form>
                     ) : (
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-dark-800 rounded-lg p-4 max-h-[60vh] overflow-y-auto border border-dark-700">
-                                <h3 className="font-semibold text-blue-400 mb-3 text-lg">
-                                    {model1 === 'gemini' ? '✨ Gemini' : '🤖 ChatGPT'}
-                                </h3>
-                                <div className="text-sm text-gray-100">
+                        <div className="grid grid-cols-2 gap-6 h-[500px]">
+                            <div className="bg-[#111] rounded flex flex-col border border-neutral-800/50 overflow-hidden">
+                                <div className="p-4 border-b border-neutral-800 bg-neutral-900/50 flex-shrink-0">
+                                    <h3 className="font-medium text-white flex items-center gap-2">
+                                        {model1 === 'gemini' 
+                                            ? <><GeminiLogo className="w-4 h-4 text-blue-400" /> Gemini</> 
+                                            : <><ChatGPTLogo className="w-4 h-4 text-green-500" /> ChatGPT</>
+                                        }
+                                    </h3>
+                                </div>
+                                <div className="p-5 overflow-y-auto flex-1 text-sm text-neutral-300">
                                     {renderContent( results.model1 )}
                                 </div>
                             </div>
-                            <div className="bg-dark-800 rounded-lg p-4 max-h-[60vh] overflow-y-auto border border-dark-700">
-                                <h3 className="font-semibold text-purple-400 mb-3 text-lg">
-                                    {model2 === 'gemini' ? '✨ Gemini' : '🤖 ChatGPT'}
-                                </h3>
-                                <div className="text-sm text-gray-100">
+                            
+                            <div className="bg-[#111] rounded flex flex-col border border-neutral-800/50 overflow-hidden">
+                                <div className="p-4 border-b border-neutral-800 bg-neutral-900/50 flex-shrink-0">
+                                    <h3 className="font-medium text-white flex items-center gap-2">
+                                        {model2 === 'gemini' 
+                                            ? <><GeminiLogo className="w-4 h-4 text-blue-400" /> Gemini</> 
+                                            : <><ChatGPTLogo className="w-4 h-4 text-green-500" /> ChatGPT</>
+                                        }
+                                    </h3>
+                                </div>
+                                <div className="p-5 overflow-y-auto flex-1 text-sm text-neutral-300">
                                     {renderContent( results.model2 )}
                                 </div>
                             </div>
@@ -229,18 +251,18 @@ export default function CompareModal( { isOpen, onClose, onCompare } ) {
                 </div>
 
                 {/* Footer */}
-                <div className="border-t border-dark-700 p-4 flex justify-end gap-2">
+                <div className="border-t border-neutral-800 p-4 flex justify-end gap-3">
                     {results && (
                         <button
                             onClick={() => setResults( null )}
-                            className="px-4 py-2 bg-dark-800 hover:bg-dark-700 text-gray-300 rounded-lg transition"
+                            className="px-4 py-2 bg-[#111] hover:bg-neutral-800 border border-neutral-800 text-neutral-300 rounded text-sm transition"
                         >
                             New Comparison
                         </button>
                     )}
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-dark-800 hover:bg-dark-700 text-gray-300 rounded-lg transition"
+                        className="px-4 py-2 bg-white hover:bg-gray-200 text-black rounded text-sm font-medium transition"
                     >
                         Close
                     </button>

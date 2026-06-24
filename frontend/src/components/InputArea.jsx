@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Send, ChevronDown } from 'lucide-react'
+import { Send, ChevronDown, RefreshCw } from 'lucide-react'
+import { GeminiLogo, ChatGPTLogo } from './Logos'
 
 export default function InputArea( { onSendMessage, isLoading, modelOverride, onModelChange } ) {
     const [input, setInput] = useState( '' )
@@ -27,71 +28,71 @@ export default function InputArea( { onSendMessage, isLoading, modelOverride, on
 
     const getModelLabel = () => {
         switch ( modelOverride ) {
-            case 'auto': return '🔄 Auto Rotate'
-            case 'gemini': return '✨ Gemini'
-            case 'openai': return '🤖 ChatGPT'
+            case 'auto': return <><RefreshCw size={14} className="text-blue-400" /> Auto</>
+            case 'gemini': return <><GeminiLogo className="w-3.5 h-3.5 text-blue-400" /> Gemini</>
+            case 'openai': return <><ChatGPTLogo className="w-3.5 h-3.5 text-green-500" /> ChatGPT</>
             default: return 'Select Model'
         }
     }
 
     return (
-        <div className="bg-dark-900 border-t border-dark-700 p-4">
-            <div className="max-w-4xl mx-auto">
-                <form onSubmit={handleSubmit} className="flex gap-3">
-                    <div className="relative">
+        <div className="bg-[#0A0A0A] p-4 z-10 w-full max-w-4xl mx-auto mb-2">
+            <div>
+                <form onSubmit={handleSubmit} className="flex bg-[#111] border border-neutral-800 rounded-full p-1 shadow-lg items-center transition-colors focus-within:border-neutral-600 focus-within:bg-[#151515]">
+                    <div className="pl-2 relative">
                         <button
                             type="button"
                             onClick={() => setShowModelMenu( !showModelMenu )}
-                            className="px-3 py-3 bg-dark-800 border border-dark-700 text-gray-100 text-sm rounded-lg hover:bg-dark-700 transition flex items-center gap-2 whitespace-nowrap"
+                            className="px-2 py-2 text-neutral-400 text-xs hover:text-white transition flex items-center gap-1 whitespace-nowrap bg-transparent"
                         >
                             {getModelLabel()}
-                            <ChevronDown size={16} />
+                            <ChevronDown size={14} />
                         </button>
-
+                        
                         {showModelMenu && (
-                            <div className="absolute bottom-full mb-2 left-0 bg-dark-800 border border-dark-700 rounded-lg shadow-lg z-50 min-w-max">
+                            <div className="absolute bottom-full mb-2 left-0 bg-[#111] border border-neutral-800 rounded-md shadow-2xl z-50 min-w-max overflow-hidden">
                                 <button
                                     type="button"
                                     onClick={() => selectModel( 'auto' )}
-                                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-dark-700 transition ${modelOverride === 'auto' ? 'bg-blue-600 text-white' : 'text-gray-300'}`}
+                                    className={`flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-neutral-800 transition ${modelOverride === 'auto' ? 'text-white' : 'text-neutral-400'}`}
                                 >
-                                    🔄 Auto Rotate
+                                    <RefreshCw size={14} className="text-blue-400" /> Auto
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => selectModel( 'gemini' )}
-                                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-dark-700 transition ${modelOverride === 'gemini' ? 'bg-blue-600 text-white' : 'text-gray-300'}`}
+                                    className={`flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-neutral-800 transition ${modelOverride === 'gemini' ? 'text-white' : 'text-neutral-400'}`}
                                 >
-                                    ✨ Gemini
+                                    <GeminiLogo className="w-4 h-4 text-blue-400" /> Gemini
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => selectModel( 'openai' )}
-                                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-dark-700 transition ${modelOverride === 'openai' ? 'bg-blue-600 text-white' : 'text-gray-300'}`}
+                                    className={`flex items-center gap-2 w-full text-left px-4 py-2 text-sm hover:bg-neutral-800 transition ${modelOverride === 'openai' ? 'text-white' : 'text-neutral-400'}`}
                                 >
-                                    🤖 ChatGPT
+                                    <ChatGPTLogo className="w-4 h-4 text-green-500" /> ChatGPT
                                 </button>
                             </div>
                         )}
                     </div>
-
-                    <textarea
+                    
+                    <input
+                        type="text"
                         value={input}
                         onChange={( e ) => setInput( e.target.value )}
                         onKeyDown={handleKeyDown}
-                        placeholder="Ask Sara anything... (Ctrl+K for new chat, Ctrl+E to export)"
-                        className="flex-1 bg-dark-800 border border-dark-700 text-gray-100 placeholder-gray-500 rounded-lg p-3 focus:outline-none focus:border-blue-500 resize-none"
-                        rows="2"
+                        placeholder="Message Sara..."
+                        className="flex-1 bg-transparent text-neutral-100 placeholder-neutral-500 p-3 focus:outline-none text-sm h-12"
                     />
                     <button
                         type="submit"
                         disabled={isLoading || !input.trim()}
-                        className="px-4 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded-lg transition flex items-center justify-center"
+                        className="w-10 h-10 mr-1 bg-white hover:bg-gray-200 disabled:bg-neutral-800 disabled:text-neutral-600 text-black rounded-full transition flex items-center justify-center flex-shrink-0"
                     >
                         <Send size={20} />
                     </button>
                 </form>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-[11px] text-center text-neutral-500 mt-3">
                     💡 Select a model or use Auto Rotate for smart routing
                 </p>
             </div>

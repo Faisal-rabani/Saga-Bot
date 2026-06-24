@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Copy, Check } from 'lucide-react'
+import { Copy, Check, User } from 'lucide-react'
 
 export default function Message( { message } ) {
     const isUser = message.role === 'user'
@@ -31,9 +31,9 @@ export default function Message( { message } ) {
                 const codeId = `code-${idx}`
 
                 return (
-                    <div key={idx} className="code-block my-3">
-                        <div className="flex items-center justify-between bg-dark-800 px-4 py-2 border-b border-dark-700">
-                            <span className="text-xs text-gray-400">{language}</span>
+                    <div key={idx} className="code-block my-3 bg-[#111] rounded-md border border-neutral-800/50 overflow-hidden">
+                        <div className="flex items-center justify-between bg-neutral-900 px-4 py-2 border-b border-neutral-800/50">
+                            <span className="text-xs text-neutral-400">{language}</span>
                             <button
                                 onClick={() => copyToClipboard( code, codeId )}
                                 className="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition"
@@ -62,62 +62,65 @@ export default function Message( { message } ) {
     }
 
     return (
-        <div className={`flex gap-3 mb-4 ${isUser ? 'justify-end' : ''}`}>
+        <div className={`flex gap-4 w-full mb-8 ${isUser ? 'justify-end' : 'justify-start'}`}>
             {!isUser && (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs font-bold">S</span>
+                <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0 border mt-1 overflow-hidden bg-neutral-900 border-neutral-800">
+                    <img src="/src/assets/logo.png" alt="Sara" className="w-6 h-6 rounded-sm opacity-90" />
                 </div>
             )}
 
-            <div
-                className={`max-w-2xl rounded-lg p-4 ${isUser ? 'bg-purple-600 text-white' : 'bg-dark-800 text-gray-100'
-                    }`}
-            >
-                <div>
-                    {isUser ? (
-                        <p className="whitespace-pre-wrap">{message.content}</p>
-                    ) : (
-                        <>
-                            {message.thinking && (
-                                <div className="thinking-indicator text-blue-400 text-sm mb-3 italic">
-                                    🤔 Sara thinking....
-                                </div>
-                            )}
-                            {renderContent( message.content )}
-                        </>
+            <div className={`flex-1 max-w-2xl min-w-0 ${isUser ? 'flex justify-end' : ''}`}>
+                <div className="flex flex-col">
+                    <div
+                        className={`inline-block px-5 py-3 rounded-2xl border ${
+                            isUser 
+                                ? 'bg-neutral-800 border-neutral-700 text-white font-sans rounded-tr-sm self-end' 
+                                : 'bg-[#0A0A0A] border-transparent text-neutral-200 font-space text-[13px] leading-relaxed self-start'
+                            }`}
+                    >
+                        {isUser ? (
+                            <p className="whitespace-pre-wrap">{message.content}</p>
+                        ) : (
+                            <>
+                                {message.thinking && (
+                                    <div className="flex items-center gap-2 text-orange-500/80 text-sm mb-4 font-space">
+                                        <div className="w-3.5 h-3.5 relative flex-shrink-0">
+                                            <div className="absolute inset-0 rounded-full border border-orange-500/20 border-t-orange-500 animate-spin"></div>
+                                        </div>
+                                        <span className="animate-pulse">Preparing...</span>
+                                    </div>
+                                )}
+                                {renderContent( message.content )}
+                            </>
+                        )}
+                    </div>
+
+                    {!isUser && message.metadata && (
+                        <div className="mt-4 pt-3 border-t border-neutral-800/50 flex flex-wrap gap-2 max-w-fit">
+                            <Badge label="Model" value={message.metadata.model} />
+                            <Badge label="Type" value={message.metadata.task_type} />
+                            <Badge label="Time" value={`${message.metadata.response_time}ms`} />
+                            <Badge label="Tokens" value={message.metadata.token_count} />
+                        </div>
                     )}
                 </div>
-
-                {!isUser && message.metadata && (
-                    <div className="mt-3 pt-3 border-t border-dark-700 flex flex-wrap gap-2">
-                        <Badge label="Model" value={message.metadata.model} color="blue" />
-                        <Badge label="Type" value={message.metadata.task_type} color="green" />
-                        <Badge
-                            label="Time"
-                            value={`${message.metadata.response_time}ms`}
-                            color="purple"
-                        />
-                        <Badge label="Tokens" value={message.metadata.token_count} color="yellow" />
-                    </div>
-                )}
             </div>
+            
+            {isUser && (
+                <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0 border mt-1 overflow-hidden bg-neutral-800 border-neutral-700 text-neutral-400">
+                    <User size={16} />
+                </div>
+            )}
         </div>
     )
 }
 
-function Badge( { label, value, color } ) {
-    const colorMap = {
-        blue: 'bg-blue-900 text-blue-200',
-        green: 'bg-green-900 text-green-200',
-        purple: 'bg-purple-900 text-purple-200',
-        yellow: 'bg-yellow-900 text-yellow-200'
-    }
-
+function Badge( { label, value } ) {
     // Hide badge if value is empty
     if ( !value ) return null
 
     return (
-        <span className={`text-xs px-2 py-1 rounded ${colorMap[color]}`}>
+        <span className="text-[10px] px-2 py-0.5 rounded border border-neutral-800 bg-neutral-900 text-neutral-400 uppercase tracking-wide">
             {label}: {value}
         </span>
     )

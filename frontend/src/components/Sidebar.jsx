@@ -1,16 +1,20 @@
 import React from 'react'
 import { Plus, Trash2, Download } from 'lucide-react'
 
-export default function Sidebar( { sessions, activeSessionId, onSelectSession, onNewChat, onDeleteSession, onExport } ) {
+export default function Sidebar( { isOpen, sessions, activeSessionId, onSelectSession, onNewChat, onDeleteSession, onExport, onOpenAbout } ) {
     return (
-        <div className="w-64 bg-dark-900 border-r border-dark-700 flex flex-col h-screen">
+        <div 
+            className={`flex flex-col h-screen bg-[#0A0A0A] border-r border-neutral-800/50 transition-all duration-300 ease-in-out z-20 ${
+                isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full overflow-hidden border-r-0'
+            }`}
+        >
             {/* Header */}
-            <div className="p-4 border-b border-dark-700">
+            <div className="p-4 border-b border-neutral-800/50">
                 <button
                     onClick={onNewChat}
-                    className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition"
+                    className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 py-2 px-4 rounded transition text-sm font-medium"
                 >
-                    <Plus size={18} />
+                    <Plus size={16} />
                     New Chat
                 </button>
             </div>
@@ -26,9 +30,9 @@ export default function Sidebar( { sessions, activeSessionId, onSelectSession, o
                         {sessions.map( session => (
                             <div
                                 key={session.id}
-                                className={`group p-3 rounded-lg mb-2 cursor-pointer transition ${activeSessionId === session.id
-                                        ? 'bg-dark-700 text-white'
-                                        : 'hover:bg-dark-800 text-gray-300'
+                                className={`group p-3 rounded-md mb-1 cursor-pointer transition border ${activeSessionId === session.id
+                                        ? 'bg-neutral-900 border-neutral-800 text-white'
+                                        : 'bg-transparent border-transparent hover:bg-neutral-900/50 text-neutral-400'
                                     }`}
                             >
                                 <div className="flex items-center justify-between">
@@ -71,9 +75,12 @@ export default function Sidebar( { sessions, activeSessionId, onSelectSession, o
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-dark-700 text-xs text-gray-500">
+            <div 
+                onClick={onOpenAbout}
+                className="p-4 border-t border-neutral-800/50 text-[10px] text-neutral-500 flex flex-col gap-1 uppercase tracking-widest font-medium cursor-pointer hover:bg-neutral-900 transition"
+            >
                 <p>Sara Bot v1.0</p>
-                <p>Vibe Coding Agent</p>
+                <p>Vibe Agent • About</p>
             </div>
         </div>
     )

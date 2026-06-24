@@ -7,6 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         dark: {
           950: '#0a0e27',
           900: '#0f1419',
