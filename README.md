@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="logo.png" alt="SaraBot Logo" width="240" style="border-radius: 24px; box-shadow: 0 0 35px rgba(249, 115, 22, 0.45);" />
+  <img src="banner.png" alt="SaraBot AI Assistant" width="100%" style="border-radius: 16px; box-shadow: 0 4px 30px rgba(249, 115, 22, 0.25);" />
 </p>
 
-<h1 align="center">⚡ SaraBot — AI Chatbot Application</h1>
+<h1 align="center">⚡ SaraBot AI Chatbot Application</h1>
 
 <p align="center">
   <strong>Production-grade multi-model AI chatbot experience with intelligent routing across Gemini, OpenAI, and Python.</strong>
@@ -64,7 +64,8 @@ flowchart TD
 ```
 Ai CHAT BOT/
 │
-├── logo.png                       # SaraBot official AI brand emblem
+├── banner.png                     # Full-width panoramic SaraBot hero banner
+├── logo.png                       # SaraBot official AI emblem icon
 ├── README.md                      # Complete project documentation
 ├── FILE_STRUCTURE.md              # Detailed source file index
 ├── SETUP.md                       # Quick installation guide
@@ -92,7 +93,8 @@ Ai CHAT BOT/
         ├── index.css              # Global styles, Tailwind directives & custom scrollbars
         │
         ├── assets/
-        │   └── logo.png           # SaraBot branding assets
+        │   ├── banner.png         # SaraBot hero banner
+        │   └── logo.png           # SaraBot branding emblem
         │
         ├── components/            # Modular React UI Components
         │   ├── Header.jsx         # App header with logo, mobile sidebar toggle & Compare button

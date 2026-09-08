@@ -32,7 +32,7 @@ function WelcomeScreen() {
         <div className="flex items-center justify-center h-full">
             <div className="max-w-xl text-center">
                 <div className="mb-8 flex justify-center">
-                    <img src={logoImage} alt="Sara Bot" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/10 border border-neutral-800" />
+                    <img src={logoImage} alt="Sara Bot" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/20 border border-orange-500/30 object-cover" />
                 </div>
                 
                 <div className="flex items-center justify-center gap-6">

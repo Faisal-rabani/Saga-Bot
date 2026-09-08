@@ -23,7 +23,7 @@ export default function AboutModal( { isOpen, onClose } ) {
                 {/* Content */}
                 <div className="p-6 overflow-y-auto">
                     <div className="flex justify-center mb-6">
-                        <img src={logoImage} alt="Sara Bot Logo" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/10 border border-neutral-800" />
+                        <img src={logoImage} alt="Sara Bot Logo" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/20 border border-orange-500/30 object-cover" />
                     </div>
                     
                     <div className="text-center mb-6">

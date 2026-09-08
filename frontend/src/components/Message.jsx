@@ -65,8 +65,8 @@ export default function Message( { message } ) {
     return (
         <div className={`flex gap-4 w-full mb-8 ${isUser ? 'justify-end' : 'justify-start'}`}>
             {!isUser && (
-                <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0 border mt-1 overflow-hidden bg-neutral-900 border-neutral-800">
-                    <img src={logoImage} alt="Sara" className="w-full h-full object-cover rounded-sm opacity-95" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 border mt-1 overflow-hidden bg-[#111] border-orange-500/30 shadow-md shadow-orange-500/10">
+                    <img src={logoImage} alt="Sara" className="w-full h-full object-cover" />
                 </div>
             )}
 

@@ -6,14 +6,16 @@ export default function Header( { onCompareModels, onToggleSidebar } ) {
     return (
         <div className="bg-[#0A0A0A] border-b border-neutral-800/50 px-6 py-4 flex items-center justify-between z-10 relative">
             {/* Left Section: Menu & Logo */}
-            <div className="flex items-center gap-4 z-10">
+            <div className="flex items-center gap-3 z-10">
                 <button 
                     onClick={onToggleSidebar}
-                    className="p-1 text-neutral-400 hover:text-white transition rounded"
+                    className="p-1.5 text-neutral-400 hover:text-white transition rounded-lg hover:bg-neutral-900"
                 >
                     <Menu size={20} />
                 </button>
-                <img src={logoImage} alt="Sara Bot Logo" className="w-8 h-8 rounded" />
+                <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-[#111] border border-orange-500/30 shadow-md shadow-orange-500/10">
+                    <img src={logoImage} alt="Sara Bot Logo" className="w-full h-full object-cover" />
+                </div>
             </div>
 
             {/* Center Section: Title */}
