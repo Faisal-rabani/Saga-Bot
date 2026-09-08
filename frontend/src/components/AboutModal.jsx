@@ -1,6 +1,7 @@
 import React from 'react'
 import { X } from 'lucide-react'
 import { GeminiLogo, ChatGPTLogo } from './Logos'
+import logoImage from '../assets/logo.png'
 
 export default function AboutModal( { isOpen, onClose } ) {
     if ( !isOpen ) return null
@@ -22,7 +23,7 @@ export default function AboutModal( { isOpen, onClose } ) {
                 {/* Content */}
                 <div className="p-6 overflow-y-auto">
                     <div className="flex justify-center mb-6">
-                        <img src="/src/assets/logo.png" alt="Sara Bot Logo" className="w-20 h-20 rounded-2xl opacity-90" />
+                        <img src={logoImage} alt="Sara Bot Logo" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/10 border border-neutral-800" />
                     </div>
                     
                     <div className="text-center mb-6">

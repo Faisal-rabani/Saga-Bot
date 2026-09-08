@@ -52,8 +52,8 @@ def chat():
         def generate():
             """Generator for response"""
             try:
-                # Prepare messages with system prompt for coding
-                api_messages = messages.copy()
+                # Prepare messages and remove empty assistant placeholder from frontend
+                api_messages = [m for m in messages if not (m['role'] == 'assistant' and not m.get('content'))]
                 
                 # Add system prompt if it's a coding question
                 from router import is_coding_question
@@ -61,10 +61,8 @@ def chat():
                     system_prompt = "You are a helpful coding assistant. When providing code, always wrap it in triple backticks with the language name. Example: ```python\ncode here\n```"
                     api_messages = [{'role': 'system', 'content': system_prompt}] + api_messages
                 
-                api_messages.append({'role': 'user', 'content': user_message})
-                
                 # Route message to appropriate model
-                content, model_used, response_time, model_requested = route_message(user_message, messages, model_override)
+                content, model_used, response_time, model_requested = route_message(user_message, api_messages, model_override)
                 
                 if content:
                     print(f"[RESPONSE] Success! Content length: {len(content)}")

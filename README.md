@@ -1,295 +1,273 @@
-# Sara Bot - Vibe Coding Agent
+<p align="center">
+  <img src="logo.png" alt="SaraBot Logo" width="220" style="border-radius: 20px; box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);" />
+</p>
 
-A full-stack AI chatbot application that intelligently routes questions to the best AI models. Sara Bot uses **Google Gemini** for general chat and **OpenAI ChatGPT** for coding tasks, with instant math calculations powered by Python.
+<h1 align="center">⚡ SaraBot — Intelligent Vibe Coding & AI Multi-Model Agent ⚡</h1>
 
-## 🎯 Features
+<p align="center">
+  <strong>An advanced full-stack AI chatbot and multi-model router powered by Google Gemini, OpenAI GPT, and a high-performance Python Math Engine.</strong>
+</p>
 
-### Core Functionality
-- **Smart Model Routing** - Automatically selects the best AI model based on question type
-- **Manual Model Selection** - Choose between Gemini, ChatGPT, or Auto Rotate mode
-- **Model Comparison** - Compare side-by-side responses from Gemini and ChatGPT
-- **Instant Math** - Calculate math expressions instantly without API calls
-- **Chat History** - All conversations saved in browser local storage
-- **Export Chats** - Download chat sessions as markdown files
-
-### UI/UX
-- **Dark Theme** - Modern dark interface with purple accents
-- **Purple User Messages** - User messages highlighted in purple on the right
-- **Real-time Streaming** - AI responses stream word-by-word as they arrive
-- **Code Highlighting** - Syntax highlighting for code blocks with copy button
-- **Responsive Design** - Works on desktop and tablet devices
-- **Keyboard Shortcuts** - Ctrl+K for new chat, Ctrl+E to export
-
-## 📁 Project Structure
-
-```
-sara-bot/
-├── backend/
-│   ├── app.py                 # Flask server, all API routes
-│   ├── requirements.txt        # Python dependencies
-│   └── .env                   # API keys (Gemini, OpenAI)
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Sidebar.jsx           # Chat history list
-│   │   │   ├── Header.jsx            # App title, compare button
-│   │   │   ├── ChatArea.jsx          # Message display area
-│   │   │   ├── Message.jsx           # Single message bubble
-│   │   │   ├── InputArea.jsx         # Chat input, model selector
-│   │   │   └── CompareModal.jsx      # Model comparison modal
-│   │   ├── utils/
-│   │   │   └── storage.js            # LocalStorage functions
-│   │   ├── App.jsx                   # Main app component
-│   │   ├── main.jsx                  # React entry point
-│   │   └── index.css                 # Tailwind styles
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js
-│   └── tailwind.config.js
-│
-├── README.md                  # This file
-├── SETUP.md                   # Installation instructions
-└── .gitignore
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 16+ and npm
-- Python 3.8+
-- Google Gemini API key
-- OpenAI API key (optional, for ChatGPT features)
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone <repo-url>
-cd sara-bot
-```
-
-2. **Setup Backend**
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-3. **Setup Frontend**
-```bash
-cd frontend
-npm install
-```
-
-4. **Configure API Keys**
-Create `backend/.env`:
-```
-GEMINI_API_KEY=your_gemini_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-### Running the Application
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-python app.py
-```
-Backend runs on `http://localhost:5000`
-
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
-npm run dev
-```
-Frontend runs on `http://localhost:5175`
-
-Open your browser to `http://localhost:5175`
-
-## 🎮 How to Use
-
-### Model Selection
-Click the model selector button (left of chat input) to choose:
-- **🔄 Auto Rotate** - Smart routing (coding → ChatGPT, general → Gemini)
-- **✨ Gemini** - Always use Google Gemini
-- **🤖 ChatGPT** - Always use OpenAI
-
-### Compare Models
-1. Click "Compare Models" button in header
-2. Enter a prompt
-3. Select two models to compare
-4. View side-by-side responses
-
-### Chat Features
-- **New Chat** - Ctrl+K or click "New Chat" button
-- **Export Chat** - Ctrl+E or click export icon on session
-- **Delete Chat** - Hover over session and click trash icon
-- **Code Copy** - Click copy button on code blocks
-
-## 🔧 API Endpoints
-
-### Chat Endpoint
-```
-POST /api/chat
-Body: {
-  message: string,
-  messages: array,
-  model_override: "auto" | "gemini" | "openai"
-}
-Response: Server-Sent Events stream
-```
-
-### Compare Endpoint
-```
-POST /api/compare
-Body: {
-  prompt: string,
-  model1: "gemini" | "openai",
-  model2: "gemini" | "openai"
-}
-Response: Server-Sent Events stream
-```
-
-### Health Check
-```
-GET /health
-Response: { status: "ok", api_key_present: true }
-```
-
-## 🤖 Model Routing Logic
-
-### Auto Rotate Mode
-- **Coding Keywords**: code, write, function, class, react, javascript, python, java, component, api, debug, fix, error, bug, html, css, sql, database
-  - Routes to: **OpenAI ChatGPT**
-- **Everything Else**: General questions, explanations, chat
-  - Routes to: **Google Gemini**
-- **Math Expressions**: 2+2, 15% of 240, sqrt(144), 2^8
-  - Calculated instantly with Python
-
-### Manual Selection
-- **Gemini**: Always uses Google Gemini API
-- **ChatGPT**: Always uses OpenAI API
-
-## 💾 Data Storage
-
-All chat data is stored in browser **localStorage**:
-- Chat sessions with full message history
-- Session titles (auto-generated from first message)
-- Message metadata (model used, response time, token count)
-- Persists across page refreshes
-
-## 🎨 Technology Stack
-
-### Frontend
-- **React 18** - UI framework
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **Lucide Icons** - Icon library
-
-### Backend
-- **Flask** - Web framework
-- **Flask-CORS** - Cross-origin requests
-- **Requests** - HTTP client
-- **Python-dotenv** - Environment variables
-
-### APIs
-- **Google Gemini API** - General chat and explanations
-- **OpenAI API** - Coding assistance
-- **Python Math** - Instant calculations
-
-## 📝 Environment Variables
-
-### Backend (.env)
-```
-GEMINI_API_KEY=your_key_here
-OPENAI_API_KEY=your_key_here
-FLASK_ENV=development
-```
-
-## 🔐 Security Notes
-
-- API keys stored in `.env` (never commit to git)
-- `.gitignore` excludes sensitive files
-- CORS enabled for localhost development
-- No sensitive data stored in localStorage
-
-## 🐛 Troubleshooting
-
-### Backend won't start
-- Check Python version: `python --version` (need 3.8+)
-- Install dependencies: `pip install -r requirements.txt`
-- Check port 5000 is available
-
-### Frontend won't load
-- Check Node version: `node --version` (need 16+)
-- Install dependencies: `npm install`
-- Clear npm cache: `npm cache clean --force`
-
-### API responses are empty
-- Verify API keys in `.env`
-- Check backend logs for errors
-- Test API directly: `curl http://localhost:5000/health`
-
-### Chat not saving
-- Check browser localStorage is enabled
-- Clear browser cache and try again
-- Check browser console for errors
-
-## 📚 API Key Setup
-
-### Google Gemini
-1. Go to [Google AI Studio](https://aistudio.google.com/app/apikeys)
-2. Create new API key
-3. Add to `.env` as `GEMINI_API_KEY`
-
-### OpenAI
-1. Go to [OpenAI Platform](https://platform.openai.com/account/api-keys)
-2. Create new API key
-3. Ensure account has billing enabled
-4. Add to `.env` as `OPENAI_API_KEY`
-
-## 🚀 Deployment
-
-### Frontend (Vercel/Netlify)
-```bash
-cd frontend
-npm run build
-# Deploy dist/ folder
-```
-
-### Backend (Heroku/Railway)
-```bash
-# Update requirements.txt
-pip freeze > requirements.txt
-
-# Deploy with Procfile
-web: gunicorn app:app
-```
-
-## 📄 License
-
-MIT License - feel free to use for personal or commercial projects
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
-
-## 📞 Support
-
-For issues or questions:
-- Check existing GitHub issues
-- Create a new issue with details
-- Include error messages and steps to reproduce
-
-## 🎉 Credits
-
-Built with ❤️ using React, Flask, and AI APIs
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?logo=react&logoColor=black" alt="React Vite" />
+  <img src="https://img.shields.io/badge/Backend-Flask%20%7C%20Python%203.8+-3776AB?logo=python&logoColor=white" alt="Python Flask" />
+  <img src="https://img.shields.io/badge/Styling-TailwindCSS%20%7C%20Orbitron-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/AI%20Routing-Gemini%202.5%20%26%20OpenAI%20GPT-FF6B6B" alt="AI Routing" />
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
+</p>
 
 ---
 
-**Sara Bot v1.0** - Your AI-powered vibe coding agent
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Architecture & Routing Logic](#-architecture--routing-logic)
+- [Folder & Project Structure](#-folder--project-structure)
+- [Technical Stack](#-technical-stack)
+- [Installation & Implementation Guide](#-installation--implementation-guide)
+- [API Reference](#-api-reference)
+- [Challenges Faced & Solutions (Problem Solving)](#-challenges-faced--solutions-problem-solving)
+- [Keyboard Shortcuts](#-keyboard-shortcuts)
+- [License & Contributing](#-license--contributing)
+
+---
+
+## 🌟 Overview
+
+**SaraBot** is an ultra-fast, intelligent AI companion built for developers, creators, and power users. Instead of locking you into a single AI model, SaraBot features an **Intelligent Task Router** that automatically classifies incoming prompts and delegates them to the most suitable engine:
+- **Coding & Technical Architecture:** High-precision coding prompts wrapped in automated system prompts for clean, copyable code blocks.
+- **General Conversations & Explanations:** Real-time conversational streams powered by Google Gemini 2.5 Flash.
+- **Math & Arithmetic Calculations:** Instant computation through an isolated, zero-latency Python AST arithmetic parser (no API roundtrip needed).
+
+---
+
+## 🚀 Key Features
+
+### 🧠 Smart Model Routing & Execution
+- **Auto Rotate Mode:** Detects coding keywords (`react`, `function`, `api`, `debug`, `sql`, etc.) and routes them to optimal models.
+- **Model Override Controls:** Switch on-the-fly between **Auto Rotate**, **Gemini**, or **ChatGPT**.
+- **Side-by-Side Model Arena (`CompareModal`):** Run the same prompt simultaneously against two models with live side-by-side stream comparison to benchmark response quality and latency.
+- **Instant Math Engine:** Evaluates expressions (e.g., `15% of 240`, `sqrt(144) * 12`, `2^10`) locally with zero token consumption.
+
+### 💻 Developer-First UI / UX
+- **Futuristic Cyberpunk Aesthetic:** Deep dark theme (`#0A0A0A`), crisp typography (`Orbitron` & `Space Grotesk`), and vibrant amber/orange accents.
+- **Live Server-Sent Events (SSE) Streaming:** Low-latency token-by-token streaming with live "Preparing..." indicator.
+- **Syntax Highlighting & One-Click Copy:** Automatic code block detection with copy feedback.
+- **Persistent Chat History:** Full session persistence via browser `localStorage` with auto-naming, session deletion, and markdown export.
+
+---
+
+## 🏗️ Architecture & Routing Logic
+
+```mermaid
+flowchart TD
+    User([User Prompt Input]) --> Router{Task Classifier}
+    Router -->|Math Expression| MathEngine[Python Math Engine\nZero API Latency]
+    Router -->|Coding Keywords| AutoPrompt[System Prompt Injection\n+ Code Formatter]
+    Router -->|General Chat| GeminiEngine[Google Gemini API\n2.5 Flash]
+    AutoPrompt --> AICall[API Handler / Fallback Manager]
+    AICall --> GeminiEngine
+    AICall --> OpenAIEngine[OpenAI GPT API]
+    MathEngine --> SSEStream[SSE Stream Generator]
+    GeminiEngine --> SSEStream
+    OpenAIEngine --> SSEStream
+    SSEStream --> FrontendUI[React UI / Message Renderer]
+```
+
+---
+
+## 📁 Folder & Project Structure
+
+```
+Ai CHAT BOT/
+│
+├── logo.png                       # High-resolution SaraBot AI emblem
+├── README.md                      # Comprehensive project documentation
+├── FILE_STRUCTURE.md              # Detailed source file index
+├── SETUP.md                       # Quick installation instructions
+├── .gitignore                     # Git ignore rules for node_modules, .env, pycache
+│
+├── backend/                       # Python Flask API & AI Routing Service
+│   ├── app.py                     # Main Flask server, SSE streaming routes (/api/chat, /api/compare)
+│   ├── router.py                  # Task classification, prompt injection, and multi-model dispatch
+│   ├── math_engine.py             # Safe, local AST math evaluation engine
+│   ├── test_api.py                # Backend unit tests and connection health checks
+│   ├── requirements.txt           # Python dependencies (flask, flask-cors, requests, python-dotenv)
+│   ├── .env                       # Environment variables (API keys - excluded from git)
+│   └── .env.example               # Template for environment configuration
+│
+└── frontend/                      # React 18 + Vite Single Page Application
+    ├── index.html                 # HTML shell with custom fonts & meta tags
+    ├── vite.config.js             # Vite build & dev server config
+    ├── tailwind.config.js         # Custom Tailwind theme (colors, Orbitron font family)
+    ├── postcss.config.js          # PostCSS configuration
+    ├── package.json               # Frontend dependencies & scripts
+    │
+    └── src/
+        ├── main.jsx               # React DOM entry point
+        ├── App.jsx                # Core application layout, SSE consumer & state coordinator
+        ├── index.css              # Global styles, Tailwind directives & custom scrollbars
+        │
+        ├── assets/
+        │   └── logo.png           # SaraBot branding assets
+        │
+        ├── components/            # Modular React UI Components
+        │   ├── Header.jsx         # App header with logo, mobile sidebar toggle & Compare button
+        │   ├── Sidebar.jsx        # Session list, new chat trigger, search & export actions
+        │   ├── ChatArea.jsx       # Scrollable chat thread & welcome quick-actions
+        │   ├── Message.jsx        # Message bubble, code syntax blocks & metadata badges
+        │   ├── InputArea.jsx      # Auto-expanding textarea, model selector & submit button
+        │   ├── CompareModal.jsx   # Side-by-side dual model comparison dialog
+        │   ├── AboutModal.jsx     # System information & model details modal
+        │   └── Logos.jsx          # SVG brand icons for Gemini & ChatGPT
+        │
+        └── utils/
+            └── storage.js         # LocalStorage persistence helpers for chat sessions
+```
+
+---
+
+## 🛠️ Technical Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Frontend Framework** | React 18 + Vite | Lightning-fast reactive user interface |
+| **Styling** | Tailwind CSS + Lucide Icons | Responsive modern cyberpunk dark theme |
+| **Backend Framework** | Python 3 + Flask + Flask-CORS | API server with Server-Sent Events (SSE) |
+| **AI Providers** | Google Gemini 2.5 Flash, OpenAI GPT | Multi-model intelligence & code generation |
+| **Computation Engine** | Python AST Math Engine | Sub-millisecond instant math calculations |
+| **Storage** | Browser LocalStorage | Zero-database client-side privacy & persistence |
+
+---
+
+## ⚙️ Installation & Implementation Guide
+
+### Prerequisites
+- **Node.js**: v18.x or higher
+- **Python**: v3.8 or higher
+- **Google Gemini API Key** ([Get free key at Google AI Studio](https://aistudio.google.com/))
+- **OpenAI API Key** *(Optional)*
+
+### Step 1: Clone Repository
+```bash
+git clone https://github.com/Faisal-rabani/Saga-Bot.git
+cd "Ai CHAT BOT"
+```
+
+### Step 2: Backend Setup
+```bash
+cd backend
+python -m venv venv
+
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+# source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+Create `backend/.env` file:
+```env
+GEMINI_API_KEY=your_google_gemini_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+FLASK_ENV=development
+```
+
+Start the Flask server:
+```bash
+python app.py
+```
+*Backend runs on `http://localhost:5000`*
+
+### Step 3: Frontend Setup
+Open a new terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*Frontend runs on `http://localhost:5175` (or `http://localhost:5173`)*
+
+---
+
+## 📡 API Reference
+
+### 1. Chat Stream Endpoint
+`POST /api/chat`
+```json
+{
+  "message": "Write a debounce function in JavaScript",
+  "messages": [
+    {"role": "user", "content": "Hello"},
+    {"role": "assistant", "content": "Hi! How can I help you today?"}
+  ],
+  "model_override": "auto" // "auto" | "gemini" | "openai"
+}
+```
+**Response:** `text/event-stream` delivering content chunks and metadata (model used, response time, token count).
+
+### 2. Dual Model Comparison
+`POST /api/compare`
+```json
+{
+  "prompt": "Explain Quantum Computing in simple terms",
+  "model1": "gemini",
+  "model2": "openai"
+}
+```
+**Response:** `text/event-stream` delivering concurrent streams from both models.
+
+### 3. Service Health Check
+`GET /health`
+```json
+{
+  "status": "ok",
+  "api_key_present": true
+}
+```
+
+---
+
+## 🛡️ Challenges Faced & Solutions (Problem Solving)
+
+During the development and optimization of SaraBot, several technical challenges were addressed:
+
+1. **OpenAI Quota Limits & Rate Limits (HTTP 429):**
+   - *Problem:* Users on OpenAI free-tier often encounter credit limits or 429 errors.
+   - *Solution:* Implemented an intelligent fallback pipeline in `router.py`. If OpenAI quota is exhausted, the engine seamlessly routes requests to Gemini 2.5 Flash while notifying the user gracefully without crashing the UI.
+
+2. **Empty Placeholder Bubbles During SSE Streaming:**
+   - *Problem:* Frontend initializations added empty assistant objects to the message list before the first token arrived, resulting in empty or duplicate bubbles.
+   - *Solution:* Added strict sanitization in `backend/app.py` to filter empty message payloads and optimized `Message.jsx` to render content cleanly only when valid tokens exist.
+
+3. **Code Formatting & Markdown Consistency:**
+   - *Problem:* AI models occasionally outputted raw unformatted code instead of formatted code blocks.
+   - *Solution:* Injected targeted system prompts whenever coding tasks are detected, ensuring code blocks always include language headers and formatting compatible with the custom copyable code widget.
+
+4. **Instant Math without Consuming API Quota:**
+   - *Problem:* Sending simple arithmetic calculations to cloud LLMs introduced unnecessary latency (1-2s) and consumed API quotas.
+   - *Solution:* Integrated a regex-powered `math_engine.py` using Python's mathematical evaluation to deliver instant (<5ms) results.
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl + K` / `Cmd + K` | Start a new chat session |
+| `Ctrl + E` / `Cmd + E` | Export active chat session as Markdown |
+| `Enter` | Send message |
+| `Shift + Enter` | Insert new line in chat input |
+
+---
+
+## 🤝 Contributing & License
+
+Contributions are welcome! Please feel free to submit a Pull Request or open an Issue.
+
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+<p align="center">
+  Built with ❤️ for AI Builders & Developers
+</p>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Copy, Check, User } from 'lucide-react'
+import logoImage from '../assets/logo.png'
 
 export default function Message( { message } ) {
     const isUser = message.role === 'user'
@@ -12,7 +13,7 @@ export default function Message( { message } ) {
     }
 
     const renderContent = ( content ) => {
-        if ( !content ) return <p className="text-gray-100">No content</p>
+        if ( !content ) return null
 
         const parts = content.split( /```(\w+)?\n([\s\S]*?)```/g )
 
@@ -65,7 +66,7 @@ export default function Message( { message } ) {
         <div className={`flex gap-4 w-full mb-8 ${isUser ? 'justify-end' : 'justify-start'}`}>
             {!isUser && (
                 <div className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0 border mt-1 overflow-hidden bg-neutral-900 border-neutral-800">
-                    <img src="/src/assets/logo.png" alt="Sara" className="w-6 h-6 rounded-sm opacity-90" />
+                    <img src={logoImage} alt="Sara" className="w-full h-full object-cover rounded-sm opacity-95" />
                 </div>
             )}
 

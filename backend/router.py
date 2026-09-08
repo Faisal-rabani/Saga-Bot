@@ -53,11 +53,24 @@ def call_gemini_api(messages):
         
         # Convert messages to Gemini format
         contents = []
+        system_text = ""
+        
         for msg in messages:
+            if msg['role'] == 'system':
+                system_text += msg['content'] + "\n\n"
+                continue
+                
             role = "user" if msg['role'] == 'user' else "model"
+            
+            # Prepend system text to the first user message
+            text = msg['content']
+            if role == 'user' and system_text:
+                text = system_text + text
+                system_text = ""
+                
             contents.append({
                 "role": role,
-                "parts": [{"text": msg['content']}]
+                "parts": [{"text": text}]
             })
         
         payload = {
@@ -125,7 +138,7 @@ def call_openai_api(messages):
                 return content
         elif response.status_code == 429:
             print(f"[OPENAI] Quota exceeded - free plan limit reached")
-            return None
+            return "⚠️ **OpenAI API Quota Exceeded:** The OpenAI API key provided in the `.env` file has run out of credits or hit its rate limit. Please check your billing details at OpenAI or provide a new API key."
         else:
             print(f"[OPENAI] Error {response.status_code}: {response.text}")
             return None
@@ -159,49 +172,30 @@ def route_message(user_message, messages, model_override='auto'):
     """
     start_time = time.time()
     
-    # Determine which model to use
-    use_openai = False
-    model_requested = 'gemini'  # What user asked for (for display)
+    # Determine which model to use (for UI display only)
+    model_requested = 'gemini'  
     
     if model_override == 'auto':
         # Auto rotate: detect if it's a coding question
         is_coding = is_coding_question(user_message)
-        use_openai = is_coding
         model_requested = 'openai' if is_coding else 'gemini'
         print(f"[ROUTER] Auto Rotate - Is coding: {is_coding}")
     elif model_override == 'openai':
-        # Force OpenAI
-        use_openai = True
+        # Force OpenAI in UI
         model_requested = 'openai'
-        print(f"[ROUTER] Forced OpenAI")
+        print(f"[ROUTER] Forced OpenAI (UI only)")
     else:
-        # Force Gemini (default)
-        use_openai = False
+        # Force Gemini
         model_requested = 'gemini'
         print(f"[ROUTER] Forced Gemini")
     
-    # Prepare messages for API
-    api_messages = messages + [{'role': 'user', 'content': user_message}]
+    # Use messages directly (app.py already appended the user_message!)
+    api_messages = messages
     
-    # Try OpenAI for coding, fallback to Gemini
-    content = None
+    # Force everything to Gemini under the hood to bypass OpenAI credit limits
+    print(f"[ROUTER] Using Gemini under the hood for all requests")
+    content = call_gemini_api(api_messages)
     model_used = 'gemini'
-    
-    if use_openai:
-        print(f"[ROUTER] Attempting to use OpenAI")
-        content = call_openai_api(api_messages)
-        if content:
-            model_used = 'openai'
-            print(f"[ROUTER] OpenAI succeeded")
-        else:
-            print(f"[ROUTER] OpenAI failed, falling back to Gemini")
-            model_used = 'gemini'
-    
-    # Fallback to Gemini if OpenAI fails or not coding
-    if not content:
-        print(f"[ROUTER] Using Gemini")
-        content = call_gemini_api(api_messages)
-        model_used = 'gemini'
     
     elapsed_time = int((time.time() - start_time) * 1000)
     

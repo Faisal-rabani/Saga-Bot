@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Message from './Message'
 import { GeminiLogo, ChatGPTLogo } from './Logos'
+import logoImage from '../assets/logo.png'
 
 export default function ChatArea( { messages, isLoading } ) {
     const endRef = useRef( null )
@@ -31,7 +32,7 @@ function WelcomeScreen() {
         <div className="flex items-center justify-center h-full">
             <div className="max-w-xl text-center">
                 <div className="mb-8 flex justify-center">
-                    <img src="/src/assets/logo.png" alt="Sara Bot" className="w-16 h-16 rounded-xl opacity-80" />
+                    <img src={logoImage} alt="Sara Bot" className="w-20 h-20 rounded-2xl shadow-xl shadow-orange-500/10 border border-neutral-800" />
                 </div>
                 
                 <div className="flex items-center justify-center gap-6">
