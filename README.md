@@ -1,63 +1,46 @@
 <p align="center">
-  <img src="logo.png" alt="SaraBot Logo" width="220" style="border-radius: 20px; box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);" />
+  <img src="logo.png" alt="SaraBot Logo" width="240" style="border-radius: 24px; box-shadow: 0 0 35px rgba(249, 115, 22, 0.45);" />
 </p>
 
-<h1 align="center">⚡ SaraBot — Intelligent Vibe Coding & AI Multi-Model Agent ⚡</h1>
+<h1 align="center">⚡ SaraBot — AI Chatbot Application</h1>
 
 <p align="center">
-  <strong>An advanced full-stack AI chatbot and multi-model router powered by Google Gemini, OpenAI GPT, and a high-performance Python Math Engine.</strong>
+  <strong>Production-grade multi-model AI chatbot experience with intelligent routing across Gemini, OpenAI, and Python.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?logo=react&logoColor=black" alt="React Vite" />
-  <img src="https://img.shields.io/badge/Backend-Flask%20%7C%20Python%203.8+-3776AB?logo=python&logoColor=white" alt="Python Flask" />
-  <img src="https://img.shields.io/badge/Styling-TailwindCSS%20%7C%20Orbitron-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/AI%20Routing-Gemini%202.5%20%26%20OpenAI%20GPT-FF6B6B" alt="AI Routing" />
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
+  <img src="https://img.shields.io/badge/REACT-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18" />
+  <img src="https://img.shields.io/badge/PYTHON-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.8" />
+  <img src="https://img.shields.io/badge/ROUTER-AUTO%20ROTATE-FF6B6B?style=for-the-badge" alt="Auto Router" />
+  <img src="https://img.shields.io/badge/MATH%20ENGINE-0ms%20LATENCY-10B981?style=for-the-badge" alt="Math Engine" />
+  <img src="https://img.shields.io/badge/STREAMING-SSE%20REALTIME-8B5CF6?style=for-the-badge" alt="SSE Streaming" />
+  <img src="https://img.shields.io/badge/LICENSE-MIT-F59E0B?style=for-the-badge" alt="License MIT" />
 </p>
 
 ---
 
-## 📖 Table of Contents
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Architecture & Routing Logic](#-architecture--routing-logic)
-- [Folder & Project Structure](#-folder--project-structure)
-- [Technical Stack](#-technical-stack)
-- [Installation & Implementation Guide](#-installation--implementation-guide)
-- [API Reference](#-api-reference)
-- [Challenges Faced & Solutions (Problem Solving)](#-challenges-faced--solutions-problem-solving)
-- [Keyboard Shortcuts](#-keyboard-shortcuts)
-- [License & Contributing](#-license--contributing)
+## 📌 1. Project Overview & Summary
+
+**SaraBot** is a high-performance, full-stack AI chatbot and multi-model agent. Built with **React 18** and **Flask**, SaraBot solves the single-model limitation by introducing an **Intelligent Task Router** that automatically classifies user intent in real-time and dispatches requests to the most effective engine:
+- **Coding & Engineering Tasks:** Injects custom system prompts and delivers syntax-highlighted code blocks.
+- **Conversational & Explanatory AI:** Real-time token streams powered by Google Gemini 2.5 Flash.
+- **Instant Mathematical Computations:** Sub-millisecond arithmetic processing executed via an isolated Python AST engine without consuming external API credits.
 
 ---
 
-## 🌟 Overview
+## 📌 2. Key Features & Core Capabilities
 
-**SaraBot** is an ultra-fast, intelligent AI companion built for developers, creators, and power users. Instead of locking you into a single AI model, SaraBot features an **Intelligent Task Router** that automatically classifies incoming prompts and delegates them to the most suitable engine:
-- **Coding & Technical Architecture:** High-precision coding prompts wrapped in automated system prompts for clean, copyable code blocks.
-- **General Conversations & Explanations:** Real-time conversational streams powered by Google Gemini 2.5 Flash.
-- **Math & Arithmetic Calculations:** Instant computation through an isolated, zero-latency Python AST arithmetic parser (no API roundtrip needed).
-
----
-
-## 🚀 Key Features
-
-### 🧠 Smart Model Routing & Execution
-- **Auto Rotate Mode:** Detects coding keywords (`react`, `function`, `api`, `debug`, `sql`, etc.) and routes them to optimal models.
-- **Model Override Controls:** Switch on-the-fly between **Auto Rotate**, **Gemini**, or **ChatGPT**.
-- **Side-by-Side Model Arena (`CompareModal`):** Run the same prompt simultaneously against two models with live side-by-side stream comparison to benchmark response quality and latency.
-- **Instant Math Engine:** Evaluates expressions (e.g., `15% of 240`, `sqrt(144) * 12`, `2^10`) locally with zero token consumption.
-
-### 💻 Developer-First UI / UX
-- **Futuristic Cyberpunk Aesthetic:** Deep dark theme (`#0A0A0A`), crisp typography (`Orbitron` & `Space Grotesk`), and vibrant amber/orange accents.
-- **Live Server-Sent Events (SSE) Streaming:** Low-latency token-by-token streaming with live "Preparing..." indicator.
-- **Syntax Highlighting & One-Click Copy:** Automatic code block detection with copy feedback.
-- **Persistent Chat History:** Full session persistence via browser `localStorage` with auto-naming, session deletion, and markdown export.
+- **🤖 Smart Multi-Model Routing:** Analyzes prompts for coding keywords (`function`, `react`, `debug`, `sql`, `api`, etc.) and automatically selects the optimal engine.
+- **🎛️ Dynamic Model Selector:** Manual overrides allow switching instantly between **Auto Rotate**, **Gemini**, or **ChatGPT**.
+- **⚖️ Side-by-Side Model Arena (`CompareModal`):** Run any prompt against two models concurrently with dual real-time streaming comparison.
+- **⚡ Zero-Latency Math Calculator:** Evaluates mathematical expressions (e.g., `15% of 240`, `sqrt(144) * 12`, `2^10`) locally with zero network latency.
+- **✨ Cyberpunk Dark UI/UX:** Styled with Tailwind CSS, Orbitron typography, and glowing orange accents for a sleek, distraction-free environment.
+- **📦 Session Persistence & Export:** Stores complete chat history in browser `localStorage` with auto-titling, session deletion, and one-click markdown exports (`Ctrl + E`).
+- **📋 One-Click Code Copy:** Formatted code blocks with language indicators and instant clipboard copy feedback.
 
 ---
 
-## 🏗️ Architecture & Routing Logic
+## 📌 3. Architecture & Routing Logic
 
 ```mermaid
 flowchart TD
@@ -76,15 +59,15 @@ flowchart TD
 
 ---
 
-## 📁 Folder & Project Structure
+## 📌 4. Folder & Project Structure
 
 ```
 Ai CHAT BOT/
 │
-├── logo.png                       # High-resolution SaraBot AI emblem
-├── README.md                      # Comprehensive project documentation
+├── logo.png                       # SaraBot official AI brand emblem
+├── README.md                      # Complete project documentation
 ├── FILE_STRUCTURE.md              # Detailed source file index
-├── SETUP.md                       # Quick installation instructions
+├── SETUP.md                       # Quick installation guide
 ├── .gitignore                     # Git ignore rules for node_modules, .env, pycache
 │
 ├── backend/                       # Python Flask API & AI Routing Service
@@ -127,7 +110,7 @@ Ai CHAT BOT/
 
 ---
 
-## 🛠️ Technical Stack
+## 📌 5. Technical Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -140,7 +123,7 @@ Ai CHAT BOT/
 
 ---
 
-## ⚙️ Installation & Implementation Guide
+## 📌 6. Setup & Installation Guide
 
 ### Prerequisites
 - **Node.js**: v18.x or higher
@@ -187,11 +170,11 @@ cd frontend
 npm install
 npm run dev
 ```
-*Frontend runs on `http://localhost:5175` (or `http://localhost:5173`)*
+*Frontend runs on `http://localhost:5175`*
 
 ---
 
-## 📡 API Reference
+## 📌 7. API Reference
 
 ### 1. Chat Stream Endpoint
 `POST /api/chat`
@@ -202,7 +185,7 @@ npm run dev
     {"role": "user", "content": "Hello"},
     {"role": "assistant", "content": "Hi! How can I help you today?"}
   ],
-  "model_override": "auto" // "auto" | "gemini" | "openai"
+  "model_override": "auto"
 }
 ```
 **Response:** `text/event-stream` delivering content chunks and metadata (model used, response time, token count).
@@ -229,9 +212,7 @@ npm run dev
 
 ---
 
-## 🛡️ Challenges Faced & Solutions (Problem Solving)
-
-During the development and optimization of SaraBot, several technical challenges were addressed:
+## 📌 8. Challenges Faced & Solutions (Problem Solving)
 
 1. **OpenAI Quota Limits & Rate Limits (HTTP 429):**
    - *Problem:* Users on OpenAI free-tier often encounter credit limits or 429 errors.
@@ -251,7 +232,7 @@ During the development and optimization of SaraBot, several technical challenges
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+## 📌 9. Keyboard Shortcuts & UX Guide
 
 | Shortcut | Action |
 |---|---|
@@ -262,7 +243,7 @@ During the development and optimization of SaraBot, several technical challenges
 
 ---
 
-## 🤝 Contributing & License
+## 📌 10. License & Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request or open an Issue.
 
